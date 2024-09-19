@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" href="/css/style.css"> <!-- Link to the CSS file -->
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="/">
+                <img src="/image/logo.png" alt="Logo" width="50">
+                <span >Blog</span>
+            </a>
+        </div>
+        <div class="auth-links">
+            <a href="/login" th:href="@{/login}">Login</a>
+            <a href="/logout" th:href="@{/logout}">Logout</a>
+            <a href="/signup" th:href="@{/signup}">Sign Up</a>
+            <form action="/search" method="get" class="search-form">
+                <input type="text" name="query" placeholder="Search...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Latest Posts</h2>
+        <ul>
+            <li th:each="post : ${posts}">
+                <a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}">Post Title</a>
+                <span class="post-date" th:text="'Posted on ' + ${post.date}">Posted on 2024-09-18</span>
+                <img th:src="@{image/{id}(id=${post.id})}" alt="Post Image" />
+                <p th:text="${post.content}">This is the content of the post. It provides a brief summary or description of the post.</p>
+            </li>
+        </ul>
+        <a href="/posts/create" class="create-post-btn">Create New Post</a>
+    </div>
+</body>
+</html>
